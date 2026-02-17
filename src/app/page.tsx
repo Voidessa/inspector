@@ -6,7 +6,7 @@ import { ShoppingCart } from "lucide-react"; // Import icon for floating button 
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main className="min-h-screen text-white overflow-x-hidden">
       {/* Global Cart Sidebar (always present) */}
       <CartSidebar />
 
