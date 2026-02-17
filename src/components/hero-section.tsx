@@ -19,27 +19,36 @@ export function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
+                    className="relative"
                 >
-                    <div className="inline-flex items-center space-x-2 border border-slate-800 bg-slate-900/50 backdrop-blur-sm px-3 py-1 rounded-full text-sm text-slate-300 mb-6">
-                        <span className="flex h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-                        <span>Official Reseller & Importer</span>
+                    {/* Glowing Orb behind badge */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-25 animate-pulse"></div>
+                    <div className="relative inline-flex items-center space-x-2 border border-white/10 bg-white/5 backdrop-blur-md px-4 py-1.5 rounded-full text-sm text-slate-200 mb-8">
+                        <span className="flex h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_10px_#3b82f6]" />
+                        <span className="tracking-wide uppercase text-xs font-semibold">Official Reseller & Importer</span>
                     </div>
                 </motion.div>
 
-                <motion.h1
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400"
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="relative z-10"
                 >
-                    INSPECTOR
-                </motion.h1>
+                    <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-6 text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+                        INSPECTOR
+                    </h1>
+                    {/* Reflection effect */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/10 to-transparent bg-clip-text text-transparent pointer-events-none" aria-hidden="true">
+                        INSPECTOR
+                    </div>
+                </motion.div>
 
                 <motion.p
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.6 }}
-                    className="text-lg md:text-xl text-slate-400 max-w-2xl mb-8"
+                    className="text-lg md:text-2xl text-slate-300 max-w-2xl mb-10 font-light leading-relaxed"
                 >
                     Premium automotive recording systems. <br className="hidden md:block" />
                     Ultimate protection and clarity for every journey.
@@ -49,21 +58,29 @@ export function HeroSection() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
-                    className="flex flex-col sm:flex-row gap-4"
+                    className="flex flex-col sm:flex-row gap-6"
                 >
                     <Button
                         size="lg"
-                        variant="premium"
-                        className="group cursor-pointer"
+                        className="group relative cursor-pointer overflow-hidden rounded-full bg-blue-600/80 hover:bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.5)] border border-blue-400/30 transition-all duration-300 px-8 py-6 text-lg"
                         onClick={() => {
                             document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' });
                         }}
                     >
-                        Explore Catalog
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        <span className="relative z-10 flex items-center">
+                            Explore Catalog
+                            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                        {/* Shine effect */}
+                        <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-0" />
                     </Button>
-                    <Button size="lg" variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white cursor-pointer">
-                        <ShieldCheck className="mr-2 h-4 w-4" />
+
+                    <Button
+                        size="lg"
+                        variant="ghost"
+                        className="glass border-white/10 text-white hover:bg-white/10 rounded-full px-8 py-6 text-lg cursor-pointer transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                    >
+                        <ShieldCheck className="mr-2 h-5 w-5" />
                         Warranty Info
                     </Button>
                 </motion.div>
