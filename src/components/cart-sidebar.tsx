@@ -105,7 +105,7 @@ export function CartSidebar() {
                         </div>
 
                         {items.length > 0 && (
-                            <SheetContent className="glass bg-slate-900/80 border-l border-white/10 text-white w-full sm:max-w-md">
+                            <div className="p-6 border-t border-slate-800 bg-slate-900/80 glass">
                                 <div className="flex justify-between items-center mb-6">
                                     <span className="text-slate-400">Total</span>
                                     <span className="text-2xl font-bold text-white">
