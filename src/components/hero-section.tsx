@@ -51,11 +51,18 @@ export function HeroSection() {
                     transition={{ duration: 0.8, delay: 0.8 }}
                     className="flex flex-col sm:flex-row gap-4"
                 >
-                    <Button size="lg" variant="premium" className="group">
+                    <Button
+                        size="lg"
+                        variant="premium"
+                        className="group cursor-pointer"
+                        onClick={() => {
+                            document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                    >
                         Explore Catalog
                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Button>
-                    <Button size="lg" variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <Button size="lg" variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white cursor-pointer">
                         <ShieldCheck className="mr-2 h-4 w-4" />
                         Warranty Info
                     </Button>
