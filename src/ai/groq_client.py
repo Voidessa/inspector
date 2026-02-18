@@ -51,11 +51,13 @@ class GroqClient:
         return await self.generate_content(prompt)
 
     async def optimize_image_prompt(self, prompt: str) -> str:
-        """Optimize a prompt for image generation."""
+        """Optimize a prompt for image generation with 'Heavy Luxury' aesthetic."""
         optimization_prompt = (
-            f"Enhance the following image prompt to make it more descriptive and suitable for an AI image generator. "
-            f"Keep it in English. Focus on visual details, lighting, style, and mood. "
+            f"Enhance the following image prompt for a high-end AI image generator. "
+            f"AESTHETIC: Heavy Luxury, Monolithic Minimalism, Cinematic Narrative. "
+            f"STYLE: Deep Obsidian (#050505) shadows, Brushed Silver (#C0C0C0) accents, "
+            f"macro-mechanical precision, low-key lighting, anamorphic lens flares, high contrast. "
             f"Original prompt: '{prompt}'"
-            f"Return ONLY the enhanced prompt, nothing else."
+            f"Return ONLY the enhanced prompt in English, nothing else."
         )
         return await self.generate_content(optimization_prompt)

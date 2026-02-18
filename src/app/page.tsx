@@ -1,135 +1,123 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { CartSidebar } from "@/components/cart-sidebar";
-import { ArrowRight, ShieldCheck, Zap, Cloud, Eye } from "lucide-react";
+import { ArrowRight, Zap, Cloud, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LuxuryHero } from "@/components/luxury-hero";
 
 export default function Home() {
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-
   return (
-    <main className="min-h-screen text-white overflow-x-hidden bg-black selection:bg-blue-500/30">
+    <main className="min-h-screen text-white overflow-x-hidden bg-black selection:bg-white/20">
       <Navbar />
       <CartSidebar />
 
       {/* Hero Section */}
-      <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px]" />
-        </div>
-
-        <div className="container relative z-10 text-center px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-          >
-            <h1 className="text-[12vw] leading-none font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50 drop-shadow-2xl">
-              INSPECTOR
-            </h1>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="mt-8 flex flex-col items-center"
-          >
-            <div className="h-px w-24 bg-gradient-to-r from-transparent via-blue-500 to-transparent mb-8" />
-            <p className="text-xl md:text-3xl font-light text-slate-300 max-w-3xl mx-auto tracking-wide">
-              Future-proof automotive recording systems. <br />
-              <span className="text-blue-400 font-normal">Clarity. Protection. Intelligence.</span>
-            </p>
-
-            <div className="mt-12 flex gap-6">
-              <Link href="/catalog">
-                <Button size="lg" className="rounded-full px-10 py-8 text-xl bg-white text-black hover:bg-slate-200 transition-all font-bold tracking-tight">
-                  View Collection
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-slate-500 text-sm tracking-widest uppercase"
-        >
-          Scroll to Explore
-        </motion.div>
-      </section>
+      <LuxuryHero />
 
       {/* Marquee Section */}
-      <section className="py-8 bg-blue-900/10 border-y border-white/5 overflow-hidden backdrop-blur-sm">
+      <section className="py-12 border-y border-white/5 overflow-hidden backdrop-blur-sm bg-white/[0.02]">
         <div className="flex animate-marquee whitespace-nowrap">
           {[...Array(10)].map((_, i) => (
-            <span key={i} className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white/20 to-white/5 mx-8 uppercase italic tracking-tighter">
-              • Korean Quality • 4K HDR • Cloud Sync • AI Recognition
+            <span key={i} className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white/10 to-transparent mx-12 uppercase italic tracking-tighter">
+              • Pre-Order Now • 4K HDR Vision • Cloud Sync V4 • Signature AI
             </span>
           ))}
         </div>
       </section>
 
       {/* Feature Showcase */}
-      <section className="py-32 relative">
-        <div className="container mx-auto px-6">
+      <section className="py-40 relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-24">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-6xl font-bold tracking-tight mb-6"
+            >
+              The Science of <span className="silver-text text-white">Clarity</span>
+            </motion.h2>
+            <p className="text-white/40 text-lg md:text-xl font-light max-w-2xl mx-auto">
+              Engineered with military-grade precision to ensure your journey is documented with absolute truth.
+            </p>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-8">
             <FeatureCard
-              icon={<Eye className="w-12 h-12 text-blue-400" />}
+              icon={<Eye className="w-10 h-10 text-white" />}
               title="4K HDR Vision"
-              desc="Crystal clear recording ensuring every detail is captured, day/night."
+              desc="Crystal clear recording ensuring every detail is captured, day and night, with ultra-wide dynamic range."
             />
             <FeatureCard
-              icon={<Zap className="w-12 h-12 text-purple-400" />}
+              icon={<Zap className="w-10 h-10 text-white" />}
               title="Signature AI"
-              desc="Intelligent filtering of false radar alerts using advanced algorithms."
+              desc="Intelligent real-time filtering of radar alerts using our proprietary 2026 AI algorithms."
             />
             <FeatureCard
-              icon={<Cloud className="w-12 h-12 text-cyan-400" />}
-              title="Cloud Sync"
-              desc="Instant backup and remote access to your footage from anywhere."
+              icon={<Cloud className="w-10 h-10 text-white" />}
+              title="Cloud Sync V4"
+              desc="Instant biometric-secured backup and global remote access to your high-res footage."
             />
           </div>
         </div>
       </section>
 
       {/* Big CTA */}
-      <section className="py-40 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent pointer-events-none" />
+      <section className="py-40 text-center relative overflow-hidden h-screen flex flex-col items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
+        <div className="absolute inset-0 z-0 opacity-20">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,white_0%,transparent_70%)] blur-[100px]" />
+        </div>
+
         <div className="container relative z-10">
-          <h2 className="text-5xl md:text-8xl font-bold mb-12 tracking-tight">
-            Ready to upgrade?
-          </h2>
-          <Link href="/catalog">
-            <Button className="group relative px-12 py-8 text-2xl rounded-full overflow-hidden bg-transparent border-2 border-white/20 hover:border-white transition-all text-white">
-              <span className="relative z-10 flex items-center">
-                Open Catalog <ArrowRight className="ml-4 w-6 h-6 group-hover:translate-x-2 transition-transform" />
-              </span>
-              <div className="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-0 content-['']" />
-              <span className="absolute inset-0 flex items-center justify-center text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 font-bold flex items-center">
-                Open Catalog <ArrowRight className="ml-4 w-6 h-6 translate-x-2" />
-              </span>
-            </Button>
-          </Link>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+          >
+            <h2 className="text-6xl md:text-9xl font-bold mb-16 tracking-tighter silver-text">
+              Elevate Your <br /> Experience.
+            </h2>
+            <Link href="/catalog">
+              <Button size="lg" className="h-20 px-16 text-xl rounded-none bg-white text-black hover:bg-neutral-200 transition-all font-bold tracking-tight">
+                Secure Yours <ArrowRight className="ml-4 w-6 h-6" />
+              </Button>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 py-12 bg-black">
-        <div className="container px-4 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
-          <p>© 2026 Inspector. Engineered for perfection.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
-            <Link href="#" className="hover:text-white transition-colors">Terms</Link>
-            <Link href="#" className="hover:text-white transition-colors">Contact</Link>
+      <footer className="border-t border-white/5 py-24 bg-black relative">
+        <div className="absolute inset-0 noise" />
+        <div className="container px-6 flex flex-col md:flex-row justify-between items-start text-white/30 text-xs font-medium uppercase tracking-[0.2em] relative z-10">
+          <div className="mb-12 md:mb-0">
+            <h3 className="text-white text-lg font-black tracking-tighter mb-6">INSPECTOR</h3>
+            <p>© 2026 Inspector KOREA. <br /> Developed with pride.</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-24">
+            <div className="flex flex-col gap-4">
+              <span className="text-white/60">Product</span>
+              <Link href="#" className="hover:text-white transition-colors">Series S</Link>
+              <Link href="#" className="hover:text-white transition-colors">Catalog</Link>
+              <Link href="#" className="hover:text-white transition-colors">Tech</Link>
+            </div>
+            <div className="flex flex-col gap-4">
+              <span className="text-white/60">Legal</span>
+              <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
+              <Link href="#" className="hover:text-white transition-colors">Terms</Link>
+            </div>
+            <div className="flex flex-col gap-4">
+              <span className="text-white/60">Connect</span>
+              <Link href="#" className="hover:text-white transition-colors">Instagram</Link>
+              <Link href="#" className="hover:text-white transition-colors">Email</Link>
+            </div>
           </div>
         </div>
       </footer>
@@ -140,14 +128,17 @@ export default function Home() {
 function FeatureCard({ icon, title, desc }: { icon: any, title: string, desc: string }) {
   return (
     <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       whileHover={{ y: -10 }}
-      className="p-10 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-xl group hover:bg-white/10 transition-colors"
+      className="p-12 glass-premium group transition-all duration-500"
     >
-      <div className="mb-6 p-4 bg-white/5 rounded-2xl w-fit group-hover:scale-110 transition-transform">
+      <div className="mb-8 p-5 bg-white/5 rounded-full w-fit group-hover:bg-white group-hover:text-black transition-all duration-500">
         {icon}
       </div>
-      <h3 className="text-3xl font-bold mb-4">{title}</h3>
-      <p className="text-slate-400 text-lg leading-relaxed">{desc}</p>
+      <h3 className="text-3xl font-bold mb-4 silver-text">{title}</h3>
+      <p className="text-white/40 text-lg leading-relaxed font-light">{desc}</p>
     </motion.div>
   )
 }

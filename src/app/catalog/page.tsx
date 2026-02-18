@@ -8,42 +8,49 @@ import { CartSidebar } from "@/components/cart-sidebar";
 
 export default function CatalogPage() {
     return (
-        <main className="min-h-screen text-white bg-black selection:bg-blue-500/30">
+        <main className="min-h-screen text-white bg-black selection:bg-white/20">
             <Navbar />
             <CartSidebar />
 
             {/* Header */}
-            <section className="relative pt-32 pb-16 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-radial from-blue-900/20 to-transparent opacity-50 pointer-events-none" />
+            <section className="relative pt-48 pb-24 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none" />
                 <div className="container mx-auto px-6 text-center relative z-10">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-7xl font-bold mb-6 tracking-tight"
+                    <motion.span
+                        initial={{ opacity: 0, letterSpacing: "0.5em" }}
+                        animate={{ opacity: 1, letterSpacing: "0.3em" }}
+                        className="text-[10px] uppercase font-bold text-white/30 mb-6 block tracking-[0.5em]"
                     >
-                        Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Collection</span>
+                        Masterpiece Series
+                    </motion.span>
+                    <motion.h1
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-6xl md:text-9xl font-black italic tracking-tighter silver-text mb-8 uppercase"
+                    >
+                        Collection
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-xl text-slate-400 max-w-2xl mx-auto"
+                        className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto font-light tracking-wide uppercase"
                     >
-                        Cutting-edge recording technology for every driver.
+                        Curation of the world's most <span className="text-white">advanced</span> automotive recording instruments.
                     </motion.p>
                 </div>
             </section>
 
             {/* Grid */}
-            <section className="container mx-auto px-6 pb-24">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+            <section className="container mx-auto px-6 pb-40">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10">
                     {products.map((product, index) => (
                         <motion.div
                             key={product.id}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.5, delay: index * 0.05 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
                         >
                             <ProductCard product={product} />
                         </motion.div>
@@ -51,9 +58,10 @@ export default function CatalogPage() {
                 </div>
             </section>
 
-            <footer className="border-t border-white/10 py-12 bg-black/50 backdrop-blur-xl">
-                <div className="container px-4 text-center text-slate-600">
-                    <p>© 2026 Inspector. All rights reserved.</p>
+            <footer className="border-t border-white/5 py-24 bg-black relative">
+                <div className="absolute inset-0 noise opacity-20" />
+                <div className="container px-6 text-center text-white/20 relative z-10">
+                    <p className="text-[10px] uppercase tracking-[0.4em] font-bold">© 2026 Inspector Korea — All Rights Secured.</p>
                 </div>
             </footer>
         </main>

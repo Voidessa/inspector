@@ -160,6 +160,38 @@ A: API Google необходим для генерации контента и �
 **Q: Это нарушает правила Telegram?**  
 A: Использование userbot может нарушать ToS при агрессивной автоматизации. Используйте для личных целей, избегайте спама.
 
+## 🎨 Google Stitch MCP — AI UI Generation
+
+Проект интегрирован с [Google Stitch](https://stitch.withgoogle.com) через Model Context Protocol (MCP). Это позволяет генерировать UI-компоненты с помощью AI прямо в рабочем процессе.
+
+### Быстрая настройка
+
+```bash
+# 1. Установить gcloud CLI
+brew install google-cloud-sdk
+
+# 2. Авторизоваться
+gcloud auth login
+gcloud auth application-default login
+
+# 3. Включить Stitch API
+gcloud services enable stitch.googleapis.com
+
+# 4. Добавить в .env
+STITCH_PROJECT_ID=your-google-cloud-project-id
+STITCH_API_KEY=your-stitch-api-key  # из stitch.withgoogle.com/settings
+```
+
+### Использование в Cursor / Gemini CLI
+
+```
+@stitch generate "product card with image, title, price, add to cart button, dark theme"
+```
+
+Подробный workflow: `.agent/workflows/stitch-ui.md`
+
+---
+
 ## 📝 Лицензия
 
 MIT License - используйте свободно для личных и коммерческих целей.

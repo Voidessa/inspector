@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 venv/
 .env
+.mcp.json
 .DS_Store
 
 # Node

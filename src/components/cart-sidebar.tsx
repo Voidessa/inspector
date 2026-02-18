@@ -12,31 +12,24 @@ export function CartSidebar() {
 
     const handleCheckout = async () => {
         setIsSubmitting(true);
-
+        // Integrated with existing Telegram API
         try {
             const response = await fetch('/api/telegram', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    items,
-                    total: total()
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ items, total: total() })
             });
 
             const data = await response.json();
-
             if (data.success) {
-                alert(`Order sent successfully! Order ID: ${data.orderId}`);
                 clearCart();
                 toggleCart();
+                alert("Order secured. Expect a contact shortly.");
             } else {
-                alert("Failed to send order. Please try again.");
+                alert("Transmission failed. Please retry.");
             }
         } catch (error) {
             console.error(error);
-            alert("An error occurred. Check console.");
         } finally {
             setIsSubmitting(false);
         }
@@ -46,87 +39,85 @@ export function CartSidebar() {
         <AnimatePresence>
             {isOpen && (
                 <>
-                    {/* Backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={toggleCart}
-                        className="fixed inset-0 bg-black/60 z-40 backdrop-blur-sm"
+                        className="fixed inset-0 bg-black/80 z-[60] backdrop-blur-md"
                     />
 
-                    {/* Sidebar */}
                     <motion.div
                         initial={{ x: "100%" }}
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="fixed right-0 top-0 h-full w-full sm:w-[400px] bg-slate-950 border-l border-slate-800 z-50 shadow-2xl flex flex-col"
+                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                        className="fixed right-0 top-0 h-full w-full sm:w-[450px] bg-black border-l border-white/5 z-[70] flex flex-col shadow-[0_0_100px_rgba(0,0,0,1)]"
                     >
-                        <div className="flex items-center justify-between p-6 border-b border-slate-800">
-                            <h2 className="text-xl font-bold text-white">Your Cart</h2>
-                            <Button variant="ghost" size="icon" onClick={toggleCart}>
-                                <X className="h-5 w-5" />
-                            </Button>
+                        <div className="absolute inset-0 noise z-0" />
+
+                        <div className="relative z-10 flex items-center justify-between p-8 border-b border-white/5">
+                            <h2 className="text-xl font-black italic tracking-tighter uppercase">Vault / Your Selection</h2>
+                            <button onClick={toggleCart} className="hover:rotate-90 transition-transform duration-500 text-white/40 hover:text-white">
+                                <X className="h-6 w-6" />
+                            </button>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+                        <div className="relative z-10 flex-1 overflow-y-auto p-8 space-y-6">
                             {items.length === 0 ? (
-                                <div className="text-center text-slate-500 mt-10">
-                                    <p>Your cart is empty.</p>
-                                    <Button variant="link" onClick={toggleCart} className="mt-4 text-blue-400">
-                                        Continue Shopping
-                                    </Button>
+                                <div className="h-full flex flex-col items-center justify-center text-center">
+                                    <p className="text-white/20 font-light italic tracking-widest uppercase text-xs">No items curated yet.</p>
+                                    <button onClick={toggleCart} className="mt-8 text-white text-xs font-black uppercase tracking-[0.3em] border-b border-white/20 hover:border-white transition-all pb-1">
+                                        Back to Gallery
+                                    </button>
                                 </div>
                             ) : (
                                 items.map((item) => (
-                                    <div key={item.id} className="flex gap-4 items-center bg-slate-900/50 p-4 rounded-lg border border-slate-800">
-                                        <div className="h-16 w-16 bg-slate-800 rounded-md flex items-center justify-center shrink-0">
-                                            {/* Placeholder Image */}
-                                            <span className="text-xs text-slate-600">Img</span>
+                                    <motion.div
+                                        layout
+                                        key={item.id}
+                                        className="flex gap-6 items-center bg-white/[0.02] p-6 border border-white/5 group"
+                                    >
+                                        <div className="h-20 w-20 bg-white/5 rounded-none flex items-center justify-center shrink-0 border border-white/5 overflow-hidden">
+                                            <div className="w-full h-full noise" />
                                         </div>
                                         <div className="flex-1">
-                                            <h4 className="font-medium text-white">{item.name}</h4>
-                                            <p className="text-sm text-slate-400">
-                                                ${item.price.toLocaleString()} x {item.quantity}
+                                            <h4 className="text-sm font-black uppercase tracking-tight">{item.name}</h4>
+                                            <p className="text-xs font-light text-white/40 mt-1 uppercase tracking-widest">
+                                                CURRENCY_USD {item.price.toLocaleString()} — QTY_{item.quantity}
                                             </p>
                                         </div>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="text-red-400 hover:text-red-300 hover:bg-red-950/20"
+                                        <button
+                                            className="text-white/20 hover:text-white transition-colors"
                                             onClick={() => removeItem(item.id)}
                                         >
                                             <Trash2 className="h-4 w-4" />
-                                        </Button>
-                                    </div>
+                                        </button>
+                                    </motion.div>
                                 ))
                             )}
                         </div>
 
                         {items.length > 0 && (
-                            <div className="p-6 border-t border-slate-800 bg-slate-900/80 glass">
-                                <div className="flex justify-between items-center mb-6">
-                                    <span className="text-slate-400">Total</span>
-                                    <span className="text-2xl font-bold text-white">
+                            <div className="relative z-10 p-8 border-t border-white/5 bg-white/[0.01]">
+                                <div className="flex justify-between items-end mb-10">
+                                    <span className="text-[10px] uppercase tracking-[0.4em] text-white/30 font-bold">Total Investment</span>
+                                    <span className="text-4xl font-black italic silver-text">
                                         ${total().toLocaleString()}
                                     </span>
                                 </div>
                                 <Button
-                                    className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-6 text-lg"
+                                    className="w-full h-20 bg-white text-black hover:bg-neutral-200 rounded-none font-black uppercase tracking-[0.2em] text-sm group overflow-hidden relative"
                                     onClick={handleCheckout}
                                     disabled={isSubmitting}
                                 >
-                                    {isSubmitting ? (
-                                        "Processing..."
-                                    ) : (
-                                        <>
-                                            Checkout with Telegram <Send className="ml-2 h-5 w-5" />
-                                        </>
-                                    )}
+                                    <span className="relative z-10 flex items-center">
+                                        {isSubmitting ? "PROCESSING" : "SECURE CHECKOUT"}
+                                        {!isSubmitting && <Send className="ml-3 h-4 w-4 group-hover:translate-x-2 transition-transform" />}
+                                    </span>
                                 </Button>
-                                <p className="text-xs text-center text-slate-500 mt-4">
-                                    Order details will be sent directly to our secure Telegram channel.
+                                <p className="text-[9px] text-center text-white/20 mt-6 tracking-widest uppercase leading-loose">
+                                    Bespoke logistics handled via encrypted <br /> Telegram channel for maximum privacy.
                                 </p>
                             </div>
                         )}
